@@ -5,7 +5,9 @@ Dokploy CLI is a command-line tool to manage your Dokploy server remotely. It pr
 ## Installation
 
 ```bash
-npm install -g @dokploy/cli
+git clone https://github.com/vuongquocphong/dokploy-cli.git
+cd dokploy-cli
+pnpm install && pnpm run build && pnpm link --global
 ```
 
 ## Getting Your API Key
@@ -16,12 +18,14 @@ npm install -g @dokploy/cli
 4. Scroll down to **API/CLI Keys**
 5. Create a new key and copy it
 
+> **Note:** Your Dokploy account must be granted **Docker** permission for the `exec` command to work. Ask an organization owner to enable it under your user's permissions if you don't already have it.
+
 ## Authentication
 
 ### Option 1: Using the `auth` command
 
 ```bash
-dokploy auth -u https://panel.dokploy.com -t YOUR_API_KEY
+dokploy auth -u https://dokploy.postco.co -t THEIR_API_KEY
 ```
 
 ### Option 2: Environment variables
@@ -77,8 +81,8 @@ dokploy exec --app Web rails c
 # Narrow by project if the same app name exists in multiple projects
 dokploy exec --project "My Project" --env staging --app Web rails c
 
-# Connect to non-application services (redis, postgres, etc.)
-dokploy exec --app Cache
+# Connect to a service whose name contains spaces (quote it)
+dokploy exec --env staging --app 'Rails Console'
 ```
 
 If the same service name exists in multiple environments or projects, the CLI will prompt you to disambiguate:
